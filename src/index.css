@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --plum: #1a1520;
+  --pink-soft: #e8afc4;
+  --lavender: #a98ac5;
+  --rose: #c05278;
+  --dusty: #d8c6d9;
+  --cream: #f2e5e9;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--plum);
+  color: var(--cream);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  overflow-x: hidden;
+}
+
+.font-script {
+  font-family: "Dancing Script", cursive;
+}
+
+.font-serif-elegant {
+  font-family: "Cormorant Garamond", serif;
+}
+
+/* ---------- Glassmorphism ---------- */
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(232, 175, 196, 0.12),
+    rgba(169, 138, 197, 0.08)
+  );
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(242, 229, 233, 0.18);
+  box-shadow: 0 8px 40px rgba(26, 21, 32, 0.55),
+    inset 0 1px 0 rgba(242, 229, 233, 0.12);
+}
+
+.glass-btn {
+  background: linear-gradient(
+    135deg,
+    rgba(192, 82, 120, 0.9),
+    rgba(169, 138, 197, 0.85)
+  );
+  border: 1px solid rgba(242, 229, 233, 0.35);
+  box-shadow: 0 6px 24px rgba(192, 82, 120, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+.glass-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 34px rgba(192, 82, 120, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  filter: brightness(1.08);
+}
+.glass-btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* ---------- Text gradients ---------- */
+.text-gradient {
+  background: linear-gradient(120deg, #f2e5e9, #e8afc4, #a98ac5, #c05278);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ---------- Falling petals ---------- */
+.petal {
+  position: fixed;
+  top: -40px;
+  pointer-events: none;
+  z-index: 5;
+  will-change: transform, opacity;
+  animation: petalFall linear infinite;
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.85; }
+  100% {
+    transform: translate3d(var(--drift, 60px), 110vh, 0) rotate(540deg);
+    opacity: 0;
+  }
+}
+
+/* ---------- Twinkling stars ---------- */
+.star {
+  position: fixed;
+  pointer-events: none;
+  z-index: 4;
+  animation: twinkle var(--dur, 4s) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.7); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* ---------- Butterflies ---------- */
+.butterfly {
+  position: fixed;
+  pointer-events: none;
+  z-index: 6;
+  will-change: transform;
+  animation: butterflyPath var(--path-dur, 22s) linear infinite;
+}
+
+.butterfly .wings {
+  transform-origin: center;
+  animation: wingFlap 0.35s ease-in-out infinite alternate;
+}
+
+@keyframes wingFlap {
+  0% { transform: scaleX(1); }
+  100% { transform: scaleX(0.35); }
+}
+
+@keyframes butterflyPath {
+  0% {
+    transform: translate3d(-10vw, var(--start-y, 30vh), 0) rotate(8deg);
+  }
+  25% {
+    transform: translate3d(35vw, calc(var(--start-y, 30vh) - 8vh), 0) rotate(-6deg);
+  }
+  50% {
+    transform: translate3d(70vw, var(--start-y, 30vh), 0) rotate(10deg);
+  }
+  75% {
+    transform: translate3d(90vw, calc(var(--start-y, 30vh) + 10vh), 0) rotate(-4deg);
+  }
+  100% {
+    transform: translate3d(110vw, var(--start-y, 30vh), 0) rotate(8deg);
+  }
+}
+
+/* ---------- Candle flame ---------- */
+.flame {
+  transform-origin: bottom center;
+  animation: flameFlicker 0.22s ease-in-out infinite alternate,
+    flameSway 2.6s ease-in-out infinite;
+  filter: drop-shadow(0 0 5px rgba(255, 190, 110, 0.8))
+    drop-shadow(0 0 12px rgba(255, 150, 80, 0.45))
+    drop-shadow(0 0 22px rgba(232, 175, 196, 0.35));
+}
+
+@keyframes flameFlicker {
+  0% { transform: scale(1, 1); }
+  25% { transform: scale(0.95, 1.06); }
+  50% { transform: scale(1.03, 0.97); }
+  75% { transform: scale(0.97, 1.04); }
+  100% { transform: scale(1.02, 0.98); }
+}
+
+@keyframes flameSway {
+  0%, 100% { transform: skewX(0deg) translateX(0); }
+  30% { transform: skewX(-3deg) translateX(-1px); }
+  60% { transform: skewX(2.5deg) translateX(0.8px); }
+}
+
+.smoke {
+  animation: smokeRise 1.4s ease-out forwards;
+}
+
+@keyframes smokeRise {
+  0% { opacity: 0.55; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-40px) scale(1.8); }
+}
+
+/* ---------- Floating hearts (celebration) ---------- */
+.heart-rise {
+  position: absolute;
+  bottom: -40px;
+  pointer-events: none;
+  animation: heartFloat var(--h-dur, 4s) ease-in forwards;
+}
+
+@keyframes heartFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.6) rotate(0deg);
+    opacity: 0;
+  }
+  15% { opacity: 1; }
+  80% { opacity: 0.9; }
+  100% {
+    transform: translate3d(var(--h-drift, 0), -110vh, 0) scale(1.1) rotate(var(--h-rot, 20deg));
+    opacity: 0;
+  }
+}
+
+/* ---------- Entrance fades ---------- */
+.fade-up {
+  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(24px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease both;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.scale-in {
+  animation: scaleIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+@keyframes scaleIn {
+  0% { opacity: 0; transform: scale(0.85); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.breathe {
+  animation: breathe 5s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* ---------- Glow halo behind cake ---------- */
+.halo {
+  animation: haloPulse 6s ease-in-out infinite;
+}
+@keyframes haloPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+
+/* ---------- Wish input ---------- */
+.wish-input {
+  background: rgba(26, 21, 32, 0.45);
+  border: 1px solid rgba(242, 229, 233, 0.25);
+  color: var(--cream);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.wish-input::placeholder {
+  color: rgba(216, 198, 217, 0.55);
+  font-style: italic;
+}
+.wish-input:focus {
+  outline: none;
+  border-color: rgba(232, 175, 196, 0.8);
+  box-shadow: 0 0 0 3px rgba(232, 175, 196, 0.18);
+}
+
+/* Hide scrollbar but keep functionality */
+::-webkit-scrollbar { width: 0; height: 0; }
