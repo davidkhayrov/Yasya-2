@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import emailjs from "@emailjs/browser";
 
 type Props = {
   onSent: () => void;
@@ -23,24 +24,17 @@ export default function WishForm({ onSent }: Props) {
     setSending(true);
 
     try {
-      const response = await fetch("/api/send-wish", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ wish }),
-      });
-
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(result.error || "Не удалось отправить желание. Попробуй ещё раз.");
-      }
+      await emailjs.send(
+        "service_2jd6gtl",
+        "template_q8c4l7l",
+        { wish },
+        { publicKey: "PM6-D1Xid0n9Lt3cv" }
+      );
 
       onSent();
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Ошибка отправки. Проверь подключение к интернету и попробуй ещё раз."
-      );
+      console.error("EmailJS send error:", err);
+      setError("Не удалось отправить письмо. Попробуй ещё раз.");
       setSending(false);
     }
   };
